@@ -11,7 +11,7 @@ public class MessageStore {
 	
 	public MessageStore() {
 		
-		setMessage("Hello Struts User");
+		setMessage("Hello WINenergy User");
 	}
 
 	public String getMessage() {

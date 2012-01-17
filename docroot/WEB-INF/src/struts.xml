@@ -17,5 +17,35 @@
 		<action name="hello" class="com.winenergy.helloworld.action.HelloWorldAction" method="execute">
 			<result name="success">/html/view/HelloWorld.jsp</result>
 		</action>
+		
+		<action name="viewBookmarks" class="com.winenergy.bookmark.action.ListBookmarksAction">
+	      	<result>/html/view/bookmarksList.jsp</result>
+	   	</action>
    	</package>
+   	
+   	<package name="edit" extends="struts-portlet-default" namespace="/edit">
+		<action name="index" class="com.winenergy.bookmark.action.AddBookmarkAction">
+			<result type="redirectAction">
+	        	<param name="actionName">index!input</param>
+	     	</result>
+	     	<result name="input">/html/edit/index.jsp</result>
+	   	</action>
+	   	
+	   	<action name="manageBookmarks" class="com.winenergy.bookmark.action.ListBookmarksAction">
+	      	<result>/html/edit/manageBookmarks.jsp</result>
+	   	</action>
+	   	
+	   	<action name="deleteBookmark" class="com.winenergy.bookmark.action.DeleteBookmarkAction">
+			<result type="redirectAction">
+		    	<param name="actionName">manageBookmarks</param>
+		   	</result>
+		</action>
+		
+		<action name="editBookmark" class="com.winenergy.bookmark.action.EditBookmarkAction">
+			<result type="redirectAction">
+		   	 	<param name="actionName">manageBookmarks</param>
+		   	</result>
+		   	<result name="input">/html/edit/edit.jsp</result>
+		</action>
+	</package>
 </struts>
