@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project name="test-struts2-portlet" basedir="." default="deploy">
+	<import file="../build-common-portlet.xml" />
+	
+	<description>
+	           Basic Struts 2 Portlet Application
+	</description>
+</project>
