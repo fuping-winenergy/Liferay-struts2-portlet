@@ -5,6 +5,6 @@
 	<import file="../build-common-portlet.xml" />
 	
 	<description>
-	           Basic Struts 2 Portlet Application
+		Basic Struts 2 Portlet Application
 	</description>
 </project>
