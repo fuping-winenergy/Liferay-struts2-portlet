@@ -32,13 +32,4 @@ public class BookmarkImpl extends BookmarkBaseImpl {
 	public BookmarkImpl() {
 	}
 	
-	/**
-	 * Standard Bookmark constructor
-	 * @param name
-	 * @param url
-	 */
-	public BookmarkImpl(String name, String url) {
-		setName(name);
-		setUrl(url);
-	}
 }

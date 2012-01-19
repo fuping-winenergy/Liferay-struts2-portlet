@@ -8,7 +8,6 @@ import org.apache.struts2.dispatcher.DefaultActionSupport;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.winenergy.bookmark.model.Bookmark;
 import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
-import com.winenergy.bookmark.service.persistence.BookmarkUtil;
 import com.winenergy.bookmark.validator.BookmarkValidator;
 
 public class EditBookmarkAction extends DefaultActionSupport {
@@ -54,7 +53,7 @@ public class EditBookmarkAction extends DefaultActionSupport {
 		List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 		
 		try {
-			bookmarks = BookmarkUtil.findByname(getOldName());
+			bookmarks = BookmarkLocalServiceUtil.getBookmarkByName(getName());
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

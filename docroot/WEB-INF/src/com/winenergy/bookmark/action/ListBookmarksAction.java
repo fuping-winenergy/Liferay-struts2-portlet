@@ -7,7 +7,7 @@ import org.apache.struts2.dispatcher.DefaultActionSupport;
 
 import com.liferay.portal.kernel.exception.SystemException;
 import com.winenergy.bookmark.model.Bookmark;
-import com.winenergy.bookmark.service.persistence.BookmarkUtil;
+import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
 
 public class ListBookmarksAction extends DefaultActionSupport {
 	
@@ -23,7 +23,7 @@ public class ListBookmarksAction extends DefaultActionSupport {
 		
 		//retrieve all the bookmarks from the database
 		try {
-			setBookmarks(BookmarkUtil.findAll());
+			setBookmarks(BookmarkLocalServiceUtil.getAllBookmarks());
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -77,10 +77,12 @@ public interface BookmarkLocalService extends PersistedModelLocalService {
 	* Deletes the bookmark from the database. Also notifies the appropriate model listeners.
 	*
 	* @param bookmark the bookmark
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteBookmark(com.winenergy.bookmark.model.Bookmark bookmark)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* Performs a dynamic query on the database and returns the matching rows.
@@ -230,4 +232,23 @@ public interface BookmarkLocalService extends PersistedModelLocalService {
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
+
+	/**
+	* retrieve all the bookmarks from the database
+	*
+	* @return List<Bookmark>
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.winenergy.bookmark.model.Bookmark> getAllBookmarks()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* retrieve the bookmark by bookmark name from the database
+	*
+	* @return
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.winenergy.bookmark.model.Bookmark> getBookmarkByName(
+		java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

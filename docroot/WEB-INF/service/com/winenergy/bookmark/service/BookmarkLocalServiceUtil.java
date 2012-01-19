@@ -80,11 +80,13 @@ public class BookmarkLocalServiceUtil {
 	* Deletes the bookmark from the database. Also notifies the appropriate model listeners.
 	*
 	* @param bookmark the bookmark
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public static void deleteBookmark(
 		com.winenergy.bookmark.model.Bookmark bookmark)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		getService().deleteBookmark(bookmark);
 	}
 
@@ -259,6 +261,27 @@ public class BookmarkLocalServiceUtil {
 	*/
 	public static void setBeanIdentifier(java.lang.String beanIdentifier) {
 		getService().setBeanIdentifier(beanIdentifier);
+	}
+
+	/**
+	* retrieve all the bookmarks from the database
+	*
+	* @return List<Bookmark>
+	*/
+	public static java.util.List<com.winenergy.bookmark.model.Bookmark> getAllBookmarks()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAllBookmarks();
+	}
+
+	/**
+	* retrieve the bookmark by bookmark name from the database
+	*
+	* @return
+	*/
+	public static java.util.List<com.winenergy.bookmark.model.Bookmark> getBookmarkByName(
+		java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBookmarkByName(name);
 	}
 
 	public static void clearService() {

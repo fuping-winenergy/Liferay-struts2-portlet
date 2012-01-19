@@ -83,6 +83,12 @@ public class BookmarkLocalServiceClp implements BookmarkLocalService {
 
 		_setBeanIdentifierMethodKey16 = new MethodKey(_classLoaderProxy.getClassName(),
 				"setBeanIdentifier", java.lang.String.class);
+
+		_getAllBookmarksMethodKey17 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getAllBookmarks");
+
+		_getBookmarkByNameMethodKey18 = new MethodKey(_classLoaderProxy.getClassName(),
+				"getBookmarkByName", java.lang.String.class);
 	}
 
 	public com.winenergy.bookmark.model.Bookmark addBookmark(
@@ -164,7 +170,8 @@ public class BookmarkLocalServiceClp implements BookmarkLocalService {
 	}
 
 	public void deleteBookmark(com.winenergy.bookmark.model.Bookmark bookmark)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		MethodHandler methodHandler = new MethodHandler(_deleteBookmarkMethodKey3,
 				ClpSerializer.translateInput(bookmark));
 
@@ -172,6 +179,10 @@ public class BookmarkLocalServiceClp implements BookmarkLocalService {
 			_classLoaderProxy.invoke(methodHandler);
 		}
 		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
 				throw (com.liferay.portal.kernel.exception.SystemException)t;
 			}
@@ -545,6 +556,60 @@ public class BookmarkLocalServiceClp implements BookmarkLocalService {
 		}
 	}
 
+	public java.util.List<com.winenergy.bookmark.model.Bookmark> getAllBookmarks()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getAllBookmarksMethodKey17);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.winenergy.bookmark.model.Bookmark>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.winenergy.bookmark.model.Bookmark> getBookmarkByName(
+		java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getBookmarkByNameMethodKey18,
+				ClpSerializer.translateInput(name));
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.winenergy.bookmark.model.Bookmark>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public ClassLoaderProxy getClassLoaderProxy() {
 		return _classLoaderProxy;
 	}
@@ -567,4 +632,6 @@ public class BookmarkLocalServiceClp implements BookmarkLocalService {
 	private MethodKey _updateBookmarkMethodKey14;
 	private MethodKey _getBeanIdentifierMethodKey15;
 	private MethodKey _setBeanIdentifierMethodKey16;
+	private MethodKey _getAllBookmarksMethodKey17;
+	private MethodKey _getBookmarkByNameMethodKey18;
 }

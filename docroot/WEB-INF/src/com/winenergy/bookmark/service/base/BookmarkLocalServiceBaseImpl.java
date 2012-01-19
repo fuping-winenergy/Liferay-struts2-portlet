@@ -135,9 +135,11 @@ public abstract class BookmarkLocalServiceBaseImpl
 	 * Deletes the bookmark from the database. Also notifies the appropriate model listeners.
 	 *
 	 * @param bookmark the bookmark
+	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void deleteBookmark(Bookmark bookmark) throws SystemException {
+	public void deleteBookmark(Bookmark bookmark)
+		throws PortalException, SystemException {
 		bookmarkPersistence.remove(bookmark);
 
 		Indexer indexer = IndexerRegistryUtil.getIndexer(getModelClassName());

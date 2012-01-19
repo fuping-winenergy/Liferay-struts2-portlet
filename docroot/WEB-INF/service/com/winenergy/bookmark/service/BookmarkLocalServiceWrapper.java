@@ -72,10 +72,12 @@ public class BookmarkLocalServiceWrapper implements BookmarkLocalService,
 	* Deletes the bookmark from the database. Also notifies the appropriate model listeners.
 	*
 	* @param bookmark the bookmark
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public void deleteBookmark(com.winenergy.bookmark.model.Bookmark bookmark)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		_bookmarkLocalService.deleteBookmark(bookmark);
 	}
 
@@ -248,6 +250,27 @@ public class BookmarkLocalServiceWrapper implements BookmarkLocalService,
 	*/
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_bookmarkLocalService.setBeanIdentifier(beanIdentifier);
+	}
+
+	/**
+	* retrieve all the bookmarks from the database
+	*
+	* @return List<Bookmark>
+	*/
+	public java.util.List<com.winenergy.bookmark.model.Bookmark> getAllBookmarks()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bookmarkLocalService.getAllBookmarks();
+	}
+
+	/**
+	* retrieve the bookmark by bookmark name from the database
+	*
+	* @return
+	*/
+	public java.util.List<com.winenergy.bookmark.model.Bookmark> getBookmarkByName(
+		java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bookmarkLocalService.getBookmarkByName(name);
 	}
 
 	/**

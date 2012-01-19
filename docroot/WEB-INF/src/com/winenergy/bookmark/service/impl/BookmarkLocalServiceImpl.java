@@ -14,7 +14,14 @@
 
 package com.winenergy.bookmark.service.impl;
 
+import java.util.List;
+
+import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.winenergy.bookmark.model.Bookmark;
 import com.winenergy.bookmark.service.base.BookmarkLocalServiceBaseImpl;
+import com.winenergy.bookmark.service.persistence.BookmarkUtil;
 
 /**
  * The implementation of the bookmark local service.
@@ -36,4 +43,62 @@ public class BookmarkLocalServiceImpl extends BookmarkLocalServiceBaseImpl {
 	 *
 	 * Never reference this interface directly. Always use {@link com.winenergy.bookmark.service.BookmarkLocalServiceUtil} to access the bookmark local service.
 	 */
+	
+	/**
+	 * Adds the Bookmark to the database incrementing the primary key
+	 *
+	 */
+	public Bookmark addBookmark(Bookmark newBookmark) throws SystemException {
+
+		long bookmarkId = CounterLocalServiceUtil.increment(Bookmark.class.getName());
+
+		Bookmark bookmark = bookmarkPersistence.create(bookmarkId);
+		bookmark.setName(newBookmark.getName());
+		bookmark.setUrl(newBookmark.getUrl());
+		
+		bookmarkPersistence.update(bookmark, false);
+
+		return bookmark;
+	}
+
+
+	/**
+	 * Deletes a Bookmark from the database using the Bookmark object.
+	 */
+	public void deleteBookmark (Bookmark bookmark) throws PortalException, SystemException {
+
+//		resourceLocalService.deleteResource(
+//				bookmark.getCompanyId(), Bookmark.class.getName(),
+//				ResourceConstants.SCOPE_INDIVIDUAL, bookmark.getPrimaryKey());
+
+		super.deleteBookmark(bookmark);
+	}
+
+	/**
+	 * Deletes a bookmark from the database using a bookmark ID.
+	 */
+	public void deleteBookmark (long bookmarkId) throws PortalException, SystemException {
+
+		Bookmark bookmark = getBookmark(bookmarkId);
+
+		deleteBookmark(bookmark);
+	}
+
+	/**
+	 * retrieve all the bookmarks from the database
+	 * @return List<Bookmark>
+	 */
+	public List<Bookmark> getAllBookmarks() throws SystemException {
+		
+		return BookmarkUtil.findAll();
+	}
+	
+	/**
+	 * retrieve the bookmark by bookmark name from the database
+	 * @return
+	 */
+	public List<Bookmark> getBookmarkByName(String name) throws SystemException {
+		
+		return BookmarkUtil.findByname(name);
+	}
 }
