@@ -1,11 +1,15 @@
 package com.winenergy.bookmark.action;
 
-import javax.portlet.PortletPreferences;
+import java.util.ArrayList;
 
 import org.apache.struts2.dispatcher.DefaultActionSupport;
-import org.apache.struts2.portlet.interceptor.PortletPreferencesAware;
 
-public class AddBookmarkAction extends DefaultActionSupport implements PortletPreferencesAware {
+import com.winenergy.bookmark.model.Bookmark;
+import com.winenergy.bookmark.model.impl.BookmarkImpl;
+import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
+import com.winenergy.bookmark.validator.BookmarkValidator;
+
+public class AddBookmarkAction extends DefaultActionSupport {
 
 	/**
 	 * 
@@ -15,8 +19,41 @@ public class AddBookmarkAction extends DefaultActionSupport implements PortletPr
 	private String name;
 	private String url;
 
-	private PortletPreferences portletPreferences;
+	@Override
+	public String execute() throws Exception {
+		Bookmark bookmark = newBookmark();
+		ArrayList<String> errors = new ArrayList<String>();
+		BookmarkValidator validator = new BookmarkValidator();
+		
+		if(validator.validateBookmark(bookmark, errors)) {
+			//insert the Bookmark to database
+			BookmarkLocalServiceUtil.addBookmark(bookmark);
+//			TODO: handle the success massage 
+				
+			return SUCCESS;
+		}
+		else {
+//			TODO: handle the error massage 
+			
+			return ERROR;
+		}
+	}
 	
+	/**
+	 * Create a new Bookmark Object from the view
+	 * @return 
+	 */
+	public Bookmark newBookmark() {
+		BookmarkImpl newBookmark =  new BookmarkImpl();
+		newBookmark.setName(getName());
+		newBookmark.setUrl(getUrl());
+		
+		return newBookmark;
+	}
+
+	/*
+	 * Getters and Setters start here
+	 */
 	public String getName() {
 		return name;
 	}
@@ -31,25 +68,6 @@ public class AddBookmarkAction extends DefaultActionSupport implements PortletPr
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public PortletPreferences getPortletPreferences() {
-		return portletPreferences;
-	}
-
-	@Override
-	public void setPortletPreferences(PortletPreferences portletPreferences) {
-		 this.portletPreferences = portletPreferences;
-	}
-
-	@Override
-	public String execute() throws Exception {
-		if(name != null && url != null) {
-			portletPreferences.setValue(name, url);
-		    portletPreferences.store();
-		}
-		
-		return SUCCESS;
 	}
 	
 }

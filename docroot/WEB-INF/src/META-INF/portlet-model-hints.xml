@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.winenergy.bookmark.model.Bookmark">
+		<field name="bookmarkId" type="long" />
+		<field name="name" type="String" />
+		<field name="url" type="String" />
+	</model>
+</model-hints>

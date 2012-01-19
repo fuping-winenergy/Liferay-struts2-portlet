@@ -1,0 +1,1 @@
+create index IX_15BB87F6 on WINenergy_Bookmark (name);

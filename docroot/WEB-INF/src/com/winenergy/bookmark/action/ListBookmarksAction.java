@@ -2,15 +2,14 @@ package com.winenergy.bookmark.action;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.struts2.dispatcher.DefaultActionSupport;
-import org.apache.struts2.portlet.interceptor.PortletPreferencesAware;
 
-import javax.portlet.PortletPreferences;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.winenergy.bookmark.model.Bookmark;
+import com.winenergy.bookmark.service.persistence.BookmarkUtil;
 
-public class ListBookmarksAction extends DefaultActionSupport implements PortletPreferencesAware {
+public class ListBookmarksAction extends DefaultActionSupport {
 	
 	/**
 	 * 
@@ -18,25 +17,32 @@ public class ListBookmarksAction extends DefaultActionSupport implements Portlet
 	private static final long serialVersionUID = 7456296059114455080L;
 	
 	private List<Bookmark> bookmarks = new ArrayList<Bookmark>();
-	private PortletPreferences portletPreferences;
 	
-	public List<Bookmark> getBookmarks() {
-		return bookmarks;
-	}
-
-	public void setPortletPreferences(PortletPreferences portletPreferences) {
-		this.portletPreferences = portletPreferences;
-	}
-
 	@Override
 	public String execute() throws Exception {
-		// For simplicity, we'll assume that only bookmarks are stored in the preferences.
-		Map<String, String[]> preferencesMap = portletPreferences.getMap();
-		for(Map.Entry<String, String[]> entry : preferencesMap.entrySet()) {
-			bookmarks.add(new Bookmark(entry.getKey(), entry.getValue()[0]));
+		
+		//retrieve all the bookmarks from the database
+		try {
+			setBookmarks(BookmarkUtil.findAll());
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return ERROR;
 		}
-      
+		
 		return SUCCESS;
+	}
+	
+	/*
+	 * Getters and Setters start here
+	 */
+	public void setBookmarks(List<Bookmark> bookmarks) {
+		this.bookmarks = bookmarks;
+	}
+
+	public List<Bookmark> getBookmarks() {
+		return bookmarks;
 	}
 	
 }
