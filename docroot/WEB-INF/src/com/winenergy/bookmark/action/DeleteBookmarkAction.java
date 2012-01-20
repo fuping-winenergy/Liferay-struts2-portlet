@@ -1,6 +1,7 @@
 package com.winenergy.bookmark.action;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.struts2.dispatcher.DefaultActionSupport;
@@ -36,7 +37,16 @@ public class DeleteBookmarkAction extends DefaultActionSupport {
 		}
 		else {
 			//handle the error massage 
-			addActionError(MessageStore.BOOKMARK_REMOVED_FAILED);
+//			addActionError(MessageStore.BOOKMARK_REMOVED_FAILED);
+			addFieldError("failed", MessageStore.BOOKMARK_REMOVED_FAILED);
+			Iterator<String> errorIter = errors.iterator();
+			int count = 0;
+			while (errorIter.hasNext()) {
+				String error = errorIter.next();
+				addFieldError("error" + count, error);
+				count++;
+			}
+			
 			
 			return ERROR;
 		}

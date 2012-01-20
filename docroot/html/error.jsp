@@ -2,9 +2,9 @@
 
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<s:if test="hasActionErrors()">
+<s:if test="hasFieldErrors()">
    <div class="errors">
-      <s:actionerror/>
+      <s:fielderror />
    </div>
 </s:if>
 

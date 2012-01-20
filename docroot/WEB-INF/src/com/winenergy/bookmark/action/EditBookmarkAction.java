@@ -1,6 +1,7 @@
 package com.winenergy.bookmark.action;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +61,17 @@ public class EditBookmarkAction extends DefaultActionSupport
 				.append("was not updated!");
 			messageStore.setMessage(message.toString());
 			
-			addActionError(messageStore.getMessage());
+//			addActionError(messageStore.getMessage());
+			addFieldError("failed", messageStore.getMessage());
+			Iterator<String> errorIter = errors.iterator();
+			int count = 0;
+			while (errorIter.hasNext()) {
+				String error = errorIter.next();
+				addFieldError("error" + count, error);
+				count++;
+			}
+			
+			
 			
 			return ERROR;
 		}

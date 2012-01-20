@@ -1,6 +1,7 @@
 package com.winenergy.bookmark.action;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 
@@ -36,7 +37,15 @@ public class AddBookmarkAction extends DefaultActionSupport {
 		}
 		else {
 			//handle the error massage 
-			addActionError(MessageStore.BOOKMARK_ADDED_FAILED);
+//			addActionError(MessageStore.BOOKMARK_ADDED_FAILED);
+			addFieldError("failed", MessageStore.BOOKMARK_ADDED_FAILED);
+			Iterator<String> errorIter = errors.iterator();
+			int count = 0;
+			while (errorIter.hasNext()) {
+				String error = errorIter.next();
+				addFieldError("error" + count, error);
+				count++;
+			}
 			
 			return ERROR;
 		}

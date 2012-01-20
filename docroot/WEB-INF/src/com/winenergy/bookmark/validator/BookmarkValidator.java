@@ -1,9 +1,12 @@
 package com.winenergy.bookmark.validator;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.winenergy.bookmark.model.Bookmark;
+import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
 
 public class BookmarkValidator {
 	/**
@@ -27,7 +30,19 @@ public class BookmarkValidator {
 			valid = false;
 		}
 
-//		TODO: need to validate both name and url are unique
+		//validate whether the bookmark name is unique
+		List<Bookmark> bookmarks = new ArrayList<Bookmark>();
+		try {
+			bookmarks = BookmarkLocalServiceUtil.getBookmarkByName(bookmark.getName());
+		} catch (SystemException e) {
+			errors.add("an error occured when retrieving bookmark by name.");
+			e.printStackTrace();
+		}
+		
+		if(bookmarks.size() > 0) {
+			errors.add("The bookmark name " + bookmark.getName() + " is ready in use, please modify the name.");
+			valid = false;
+		}
 		
 		return valid;
 	}
