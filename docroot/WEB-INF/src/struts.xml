@@ -24,28 +24,50 @@
    	</package>
    	
    	<package name="edit" extends="struts-portlet-default" namespace="/edit">
+   		<interceptors>
+			<interceptor-stack name="storeStack"> 
+				<interceptor-ref name="defaultStack"/> 
+				<interceptor-ref name="store"> 
+					<param name="operationMode">STORE</param> 
+				</interceptor-ref> 
+			</interceptor-stack>
+			<interceptor-stack name="retrieveStack"> 
+				<interceptor-ref name="defaultStack"/> 
+				<interceptor-ref name="store"> 
+					<param name="operationMode">RETRIEVE</param> 
+				</interceptor-ref> 
+			</interceptor-stack>
+		</interceptors>
+
 		<action name="index" class="com.winenergy.bookmark.action.AddBookmarkAction">
-			<result type="redirectAction">
-	        	<param name="actionName">index!input</param>
-	     	</result>
+			<result>/html/edit/index.jsp</result>
 	     	<result name="input">/html/edit/index.jsp</result>
+		   	<result name="error">/html/error.jsp</result>
 	   	</action>
 	   	
 	   	<action name="manageBookmarks" class="com.winenergy.bookmark.action.ListBookmarksAction">
+	      	<interceptor-ref name="retrieveStack" />
+	      	
 	      	<result>/html/edit/manageBookmarks.jsp</result>
 	   	</action>
 	   	
 	   	<action name="deleteBookmark" class="com.winenergy.bookmark.action.DeleteBookmarkAction">
+			<interceptor-ref name="storeStack" /> 
+			
 			<result type="redirectAction">
 		    	<param name="actionName">manageBookmarks</param>
 		   	</result>
+		   	<result name="error">/html/error.jsp</result>
 		</action>
 		
 		<action name="editBookmark" class="com.winenergy.bookmark.action.EditBookmarkAction">
+			<interceptor-ref name="storeStack" /> 
+			
 			<result type="redirectAction">
 		   	 	<param name="actionName">manageBookmarks</param>
 		   	</result>
 		   	<result name="input">/html/edit/edit.jsp</result>
+		   	<result name="error">/html/error.jsp</result>
 		</action>
 	</package>
 </struts>

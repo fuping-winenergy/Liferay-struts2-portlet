@@ -1,7 +1,15 @@
+<link href="/css/main.css" rel="stylesheet" type="text/css" />
+    
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <h2>Create bookmarks</h2>
 
+<s:if test="hasActionMessages()">
+   <div class="message">
+      <s:actionmessage/>
+   </div>
+</s:if>
+ 
 <s:form action="index">
    <table>
       <s:textfield name="name" label="Name"/>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 
+import com.winenergy.bookmark.MessageStore;
 import com.winenergy.bookmark.model.Bookmark;
 import com.winenergy.bookmark.model.impl.BookmarkImpl;
 import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
@@ -28,12 +29,14 @@ public class AddBookmarkAction extends DefaultActionSupport {
 		if(validator.validateBookmark(bookmark, errors)) {
 			//insert the Bookmark to database
 			BookmarkLocalServiceUtil.addBookmark(bookmark);
-//			TODO: handle the success massage 
+			//add success added message
+			addActionMessage(MessageStore.BOOKMARK_ADDED_SUCCESSFUL);
 				
 			return SUCCESS;
 		}
 		else {
-//			TODO: handle the error massage 
+			//handle the error massage 
+			addActionError(MessageStore.BOOKMARK_ADDED_FAILED);
 			
 			return ERROR;
 		}
@@ -43,7 +46,7 @@ public class AddBookmarkAction extends DefaultActionSupport {
 	 * Create a new Bookmark Object from the view
 	 * @return 
 	 */
-	public Bookmark newBookmark() {
+	private Bookmark newBookmark() {
 		BookmarkImpl newBookmark =  new BookmarkImpl();
 		newBookmark.setName(getName());
 		newBookmark.setUrl(getUrl());

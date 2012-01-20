@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 
 import com.liferay.portal.kernel.exception.SystemException;
+import com.winenergy.bookmark.MessageStore;
 import com.winenergy.bookmark.model.Bookmark;
 import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
 import com.winenergy.bookmark.validator.BookmarkValidator;
@@ -28,12 +29,14 @@ public class DeleteBookmarkAction extends DefaultActionSupport {
 		if(validator.validateBookmark(bookmark, errors)) {
 			//delete the Bookmark from database
 			BookmarkLocalServiceUtil.deleteBookmark(bookmark);
-//			TODO: handle the success massage 
+			//add success remove message
+			addActionMessage(MessageStore.BOOKMARK_REMOVED_SUCCESSFUL);
 				
 			return SUCCESS;
 		}
 		else {
-//			TODO: handle the error massage 
+			//handle the error massage 
+			addActionError(MessageStore.BOOKMARK_REMOVED_FAILED);
 			
 			return ERROR;
 		}
@@ -43,7 +46,7 @@ public class DeleteBookmarkAction extends DefaultActionSupport {
 	 * find the Bookmark Object from the view
 	 * @return 
 	 */
-	public Bookmark retrieveBookmark() {
+	private Bookmark retrieveBookmark() {
 		List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 		
 		try {
