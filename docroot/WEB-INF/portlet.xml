@@ -3,7 +3,7 @@
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	
 	<portlet id="strutsPortlet">
-		<description xml:lang="EN">Simple hello world portlet</description>
+		<description xml:lang="EN">Struts2 Portlet</description>
 		<portlet-name>strutsPortlet</portlet-name>
 		<display-name>Struts-Portlet</display-name>
 		

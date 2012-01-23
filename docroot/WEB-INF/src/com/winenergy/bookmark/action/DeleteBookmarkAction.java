@@ -47,7 +47,6 @@ public class DeleteBookmarkAction extends DefaultActionSupport {
 				count++;
 			}
 			
-			
 			return ERROR;
 		}
 	}
@@ -62,7 +61,6 @@ public class DeleteBookmarkAction extends DefaultActionSupport {
 		try {
 			bookmarks = BookmarkLocalServiceUtil.getBookmarkByName(getBookmarkName());
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

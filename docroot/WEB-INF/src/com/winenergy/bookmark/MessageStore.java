@@ -11,6 +11,7 @@ public class MessageStore {
 	public static String BOOKMARK_ADDED_FAILED = "The bookmark was not added!";
 	public static String BOOKMARK_REMOVED_SUCCESSFUL = "The bookmark has been deleted.";
 	public static String BOOKMARK_REMOVED_FAILED = "The bookmark was not deleted!";
+	public static String BOOKMARK_RETRIEVE_FAILED = "Could not retrieve bookmarks from the database.";
 	
 	private String message;
 	

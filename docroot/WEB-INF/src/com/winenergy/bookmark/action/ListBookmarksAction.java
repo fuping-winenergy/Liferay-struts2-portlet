@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 
 import com.liferay.portal.kernel.exception.SystemException;
+import com.winenergy.bookmark.MessageStore;
 import com.winenergy.bookmark.model.Bookmark;
 import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
 
@@ -25,8 +26,9 @@ public class ListBookmarksAction extends DefaultActionSupport {
 		try {
 			setBookmarks(BookmarkLocalServiceUtil.getAllBookmarks());
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
+			addFieldError("failed", MessageStore.BOOKMARK_RETRIEVE_FAILED);
 			
 			return ERROR;
 		}

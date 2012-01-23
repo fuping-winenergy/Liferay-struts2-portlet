@@ -71,8 +71,6 @@ public class EditBookmarkAction extends DefaultActionSupport
 				count++;
 			}
 			
-			
-			
 			return ERROR;
 		}
    	}
@@ -96,7 +94,6 @@ public class EditBookmarkAction extends DefaultActionSupport
 		try {
 			bookmarks = BookmarkLocalServiceUtil.getBookmarkByName(getOldName());
 		} catch (SystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

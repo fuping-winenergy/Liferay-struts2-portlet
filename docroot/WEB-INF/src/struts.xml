@@ -70,4 +70,11 @@
 		   	<result name="error">/html/error.jsp</result>
 		</action>
 	</package>
+	
+	<!-- package name="ajax" extends="struts-portlet-default" namespace="/ajax">
+    	<action name="validateBookmark">
+			<result>/html/ajax/validateBookmark.jsp</result>
+		</action>
+   	</package-->
+   	
 </struts>

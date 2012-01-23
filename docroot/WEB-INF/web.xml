@@ -6,13 +6,22 @@
 		<listener-class>com.liferay.portal.kernel.spring.context.PortletContextLoaderListener</listener-class>
 	</listener>
 	  
-	<jsp-config>
-		<taglib>
-	  		<taglib-uri>http://java.sun.com/portlet_2_0</taglib-uri>
-	  		<taglib-location>
-	  			/WEB-INF/tld/liferay-portlet.tld
-	  		</taglib-location>
-	  	</taglib>
-	</jsp-config>
+	<servlet>
+        <servlet-name>struts2servlet</servlet-name>
+        <servlet-class>org.apache.struts2.dispatcher.ng.servlet.StrutsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>struts2servlet</servlet-name>
+        <url-pattern>*.action</url-pattern>
+	</servlet-mapping> 
+	<servlet>
+        <servlet-name>struts2Resources</servlet-name>
+        <servlet-class>org.apache.struts2.dispatcher.ng.servlet.StrutsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>struts2Resources</servlet-name>
+        <url-pattern>/struts/*</url-pattern>
+	</servlet-mapping> 
+	
   
 </web-app>
