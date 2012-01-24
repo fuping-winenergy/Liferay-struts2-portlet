@@ -4,7 +4,9 @@
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 
 <sj:head />
-
+<script type="text/javascript" src="/js/main.js"></script>
+ 
+ 
 <h2>Create bookmarks</h2>
 
 <s:if test="hasActionMessages()">
@@ -14,23 +16,25 @@
 </s:if>
  
 <s:form action="index" id="create_bookmark">
+	<div id="validationErrors"></div>
 	<table>
-   		<sj:textfield id="name" name="name" label="Name" onblur="$.publish('nameCheck');" />  
+   		<sj:textfield id="name" name="name" label="Name" onblur="$.publish('nameCheck');"/>  
       	<s:textfield name="url" label="URL"/>
       
       	<s:submit value="Add"/>
       
 	</table>
 	
-	<div id="div1">Div 1</div>
-    <s:url id="ajaxTest" value="/html/edit/html.jsp"/>
-	<sj:submit targets="div1" 
-				href="%{ajaxTest}"
+    <s:url id="validateName" value="/edit/ajax/validateBookmark.action"/>
+	<sj:submit targets="validationErrors" 
+				href="%{validateName}"
 	           	value="AJAX Name Check" 
 	           	indicator="indicator"
 	           	button="true"
 	            listenTopics="nameCheck"
             	cssStyle="display:none;"
+            	dataType="json"                
+            	onSuccessTopics="handleJsonResult"
            	/>
 	
 </s:form>

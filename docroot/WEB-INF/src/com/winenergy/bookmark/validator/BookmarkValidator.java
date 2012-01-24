@@ -18,32 +18,37 @@ public class BookmarkValidator {
 	 *            to populate with any errors
 	 */
 	public boolean validateBookmark(Bookmark bookmark, List<String> errors) {
-		boolean valid = true;
-
-		if (Validator.isNull(bookmark.getName())) {
-			errors.add("bookmark's name is required.");
-			valid = false;
-		}
-
+		//validate name
+		errors.addAll(validateBookmarkName(bookmark.getName()));
+		
+		//check url
 		if (Validator.isNull(bookmark.getUrl())) {
 			errors.add("bookmark's Url is required.");
-			valid = false;
+		}
+
+		return errors.size() < 1;
+	}
+	
+	public List<String> validateBookmarkName(String name) {
+		List<String> validateErrors = new ArrayList<String>();
+		
+		if (Validator.isNull(name)) {
+			validateErrors.add("bookmark's name is required.");
 		}
 
 		//validate whether the bookmark name is unique
 		List<Bookmark> bookmarks = new ArrayList<Bookmark>();
 		try {
-			bookmarks = BookmarkLocalServiceUtil.getBookmarkByName(bookmark.getName());
+			bookmarks = BookmarkLocalServiceUtil.getBookmarkByName(name);
 		} catch (SystemException e) {
-			errors.add("an error occured when retrieving bookmark by name.");
+			validateErrors.add("an error occured when retrieving bookmark by name.");
 			e.printStackTrace();
 		}
 		
 		if(bookmarks.size() > 0) {
-			errors.add("The bookmark name " + bookmark.getName() + " is ready in use, please modify the name.");
-			valid = false;
+			validateErrors.add("The bookmark name " + name + " is ready in use, please modify the name.");
 		}
 		
-		return valid;
+		return validateErrors;
 	}
 }
