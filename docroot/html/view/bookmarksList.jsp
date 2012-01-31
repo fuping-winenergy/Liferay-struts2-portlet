@@ -1,8 +1,10 @@
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
 
+<%@ page import="javax.portlet.PortletURL" %>
 <%@ page import="com.winenergy.bookmark.model.Bookmark"%>
 <%@ page import="com.winenergy.bookmark.service.BookmarkLocalServiceUtil"%>
 
@@ -39,8 +41,17 @@
 <br />
 <br />
 
+<portlet:defineObjects />
+
+<%
+ PortletURL iteratorURL = renderResponse.createRenderURL();
+ iteratorURL.setParameter("jspPage", "/html/view/bookmarksList.jsp");
+ iteratorURL.setParameter("struts.portlet.action", "/view/viewBookmarks");
+%>
+
+
 <strong>Bookmarks (liferay-ui)</strong>
-<liferay-ui:search-container delta="5" emptyResultsMessage="bookmark-empty-results-message">
+<liferay-ui:search-container delta="5" emptyResultsMessage="bookmark-empty-results-message" iteratorURL="<%= iteratorURL %>" >
 	<liferay-ui:search-container-results
 		results="<%= BookmarkLocalServiceUtil.getBookmarks(searchContainer.getStart(), searchContainer.getEnd()) %>"
 		total="<%= BookmarkLocalServiceUtil.getBookmarksCount() %>"

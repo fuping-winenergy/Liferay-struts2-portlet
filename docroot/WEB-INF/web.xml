@@ -22,6 +22,5 @@
         <servlet-name>struts2Resources</servlet-name>
         <url-pattern>/struts/*</url-pattern>
 	</servlet-mapping> 
-	
   
 </web-app>

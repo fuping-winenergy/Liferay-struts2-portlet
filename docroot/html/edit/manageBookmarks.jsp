@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tld/liferay-portlet.tld" prefix="portlet" %>
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
 <%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
@@ -35,7 +35,7 @@
 
 
 <s:url id="remoteurl" value="/edit/ajax/bookmarkTable.action"/>
-<s:url action="editBookmark!input" id="editUrl" />
+<s:url action="editBookmark!input" id="editUrl" windowState="exclusive" />
 <sjg:grid id="gridtable"
     	caption="Bookmarks"
     	dataType="json"
@@ -51,7 +51,7 @@
     	navigatorAdd="false"
     	navigatorRefresh="false"
     	navigatorSearch="false"
-		navigatorEditOptions="{height:80,reloadAfterSubmit:false}"
+		navigatorEditOptions="{height:180,reloadAfterSubmit:false}"
     	navigatorEdit="true"
     	editurl="%{editurl}"
     >
