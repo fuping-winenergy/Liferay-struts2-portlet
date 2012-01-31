@@ -21,6 +21,13 @@ public class BookmarkValidator {
 		//validate name
 		errors.addAll(validateBookmarkName(bookmark.getName()));
 		
+		/*
+		 * com.liferay.portal.kernel.util.Validator has lots of utilities
+		 * isNull,
+		 * isEmailAddress,
+		 * isPhoneNumber,
+		 * ...
+		 */
 		//check url
 		if (Validator.isNull(bookmark.getUrl())) {
 			errors.add("bookmark's Url is required.");

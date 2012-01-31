@@ -1,4 +1,12 @@
+<%@ taglib uri="/WEB-INF/tld/liferay-portlet.tld" prefix="portlet" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
+
+<%@ page import="com.winenergy.bookmark.model.Bookmark"%>
+<%@ page import="com.winenergy.bookmark.service.BookmarkLocalServiceUtil"%>
+
+<sj:head jqueryui="true" jquerytheme="flick" />
 
 <h2>Manage bookmarks</h2>
 
@@ -8,7 +16,7 @@
    </div>
 </s:if>
 
-<table>
+<!--table>
    <s:iterator value="%{bookmarks}" var="bookmark">
       <s:url action="editBookmark!input" id="editUrl">
          <s:param name="oldName" value="%{name}"/>
@@ -23,7 +31,59 @@
          <td width = "10%"><a href="<s:property value="%{deleteUrl}"/>">Delete</a></td>
       </tr>
    </s:iterator>
-</table>
+</table-->
 
 
-<p><a href="<s:url action='index!input'/>">Add Bookmarks</a></p>
+<s:url id="remoteurl" value="/edit/ajax/bookmarkTable.action"/>
+<s:url action="editBookmark!input" id="editUrl" />
+<sjg:grid id="gridtable"
+    	caption="Bookmarks"
+    	dataType="json"
+    	href="%{remoteurl}"
+    	pager="true"
+    	gridModel="gridModel"
+    	rowList="5,10,15,20"
+    	rowNum="5"
+    	multiselect="true"
+    	navigator="true"
+    	navigatorView="false"
+    	navigatorDelete="false"
+    	navigatorAdd="false"
+    	navigatorRefresh="false"
+    	navigatorSearch="false"
+		navigatorEditOptions="{height:80,reloadAfterSubmit:false}"
+    	navigatorEdit="true"
+    	editurl="%{editurl}"
+    >
+	<sjg:gridColumn name="bookmarkId" title="ID" formatter="integer" sortable="false"/>
+    <sjg:gridColumn name="name" index="name" title="Name" editable="true" edittype="text" sortable="true"/>
+    <sjg:gridColumn name="url" index="url" title="Url" editable="true" edittype="text" sortable="false"/>
+</sjg:grid>
+
+<p>
+	<a href="javascript: newBookmark();">Add Bookmarks</a>
+</p>
+
+<portlet:actionURL var="addBookmarkURL" windowState="exclusive">      
+	 <portlet:param name="struts.portlet.action" value="/edit/index!input" />
+</portlet:actionURL>
+
+<script type="text/javascript">
+function newBookmark() {
+  AUI().use('aui-dialog', 'aui-io', 'event', 'event-custom', function(A) {
+   
+    var dialog = new A.Dialog({
+	    	title: 'New Bookmark', 
+	        centered: true, 
+	        modal: true, 
+	        width: 600, 
+	        height: 400  
+        }).plug(A.Plugin.IO, {
+        		uri: '<%= addBookmarkURL %>'
+        	}).render();
+       
+        dialog.show();
+       
+  });
+}
+</script>

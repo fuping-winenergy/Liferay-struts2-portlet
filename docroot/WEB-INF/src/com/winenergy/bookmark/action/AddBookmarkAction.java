@@ -25,13 +25,15 @@ public class AddBookmarkAction extends DefaultActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		if(validateBookmark().size() > 0)
-			return SUCCESS;
-		else
+		validateBookmark();
+		
+		if(validateErrors.size() > 0)
 			return ERROR;
+		else
+			return SUCCESS;
 	}
 	
-	public List<String> validateBookmark() throws Exception {
+	public void validateBookmark() throws Exception {
 		Bookmark bookmark = newBookmark();
 		validateErrors = new ArrayList<String>();
 		BookmarkValidator validator = new BookmarkValidator();
@@ -54,8 +56,6 @@ public class AddBookmarkAction extends DefaultActionSupport {
 				count++;
 			}
 		}
-		
-		return validateErrors;
 	}
 	
 	/**

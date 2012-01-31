@@ -1,7 +1,6 @@
 package com.winenergy.bookmark.action;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.struts2.dispatcher.DefaultActionSupport;
@@ -10,7 +9,6 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.winenergy.bookmark.MessageStore;
 import com.winenergy.bookmark.model.Bookmark;
 import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
-import com.winenergy.bookmark.validator.BookmarkValidator;
 
 public class DeleteBookmarkAction extends DefaultActionSupport {
 
@@ -24,28 +22,21 @@ public class DeleteBookmarkAction extends DefaultActionSupport {
 	@Override
 	public String execute() throws Exception {
 		Bookmark bookmark = retrieveBookmark();
-		ArrayList<String> errors = new ArrayList<String>();
-		BookmarkValidator validator = new BookmarkValidator();
-		
-		if(validator.validateBookmark(bookmark, errors)) {
-			//delete the Bookmark from database
+
+		try {
 			BookmarkLocalServiceUtil.deleteBookmark(bookmark);
 			//add success remove message
 			addActionMessage(MessageStore.BOOKMARK_REMOVED_SUCCESSFUL);
 				
 			return SUCCESS;
 		}
-		else {
+		catch (SystemException e) {
 			//handle the error massage 
 //			addActionError(MessageStore.BOOKMARK_REMOVED_FAILED);
 			addFieldError("failed", MessageStore.BOOKMARK_REMOVED_FAILED);
-			Iterator<String> errorIter = errors.iterator();
-			int count = 0;
-			while (errorIter.hasNext()) {
-				String error = errorIter.next();
-				addFieldError("error" + count, error);
-				count++;
-			}
+			
+			addFieldError("System Exception", e.toString());
+			
 			
 			return ERROR;
 		}

@@ -9,7 +9,7 @@ $(document).ready( function() {
 			var list = $('#jsonMessage');
 			$.each(errorMessages, function(index, value) {                         
 				list.append('<li>'+value+'</li>\n');    
-				console.log("value " + value); 
+//				console.log("value " + value); 
 			});  
 		}
 		else {

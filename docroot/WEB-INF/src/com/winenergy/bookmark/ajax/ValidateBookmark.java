@@ -1,6 +1,5 @@
 package com.winenergy.bookmark.ajax;
 
-
 import java.util.List;
 
 import com.opensymphony.xwork2.Action;
