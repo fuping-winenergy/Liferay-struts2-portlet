@@ -4,7 +4,7 @@ $(document).ready( function() {
 		var errorMessages = event.originalEvent.data.validateErrors;
 		
 		if(errorMessages.length > 0) {
-			$('#validationErrors').addClass('errors', 1000);
+			$('#validationErrors').addClass('errors');
 			$('#validationErrors').html("<ul id='jsonMessage'></ul>");  
 			var list = $('#jsonMessage');
 			$.each(errorMessages, function(index, value) {                         
@@ -13,11 +13,19 @@ $(document).ready( function() {
 			});  
 		}
 		else {
-			$('#validationErrors').removeClass('errors', 1000);
+			$('#validationErrors').removeClass('errors');
 			$('#validationErrors').html(""); 
 		}
 		
 		return false;
 	});
 });    
-     
+
+$(document).ready( function() {  
+	$.subscribe('edit_bookmark', function(event, data) { 
+		
+		editBookmark(data.old_name);
+		
+		return false;
+	});
+});   

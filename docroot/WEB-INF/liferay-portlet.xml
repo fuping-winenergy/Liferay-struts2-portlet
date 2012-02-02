@@ -7,7 +7,9 @@
 		<portlet-name>strutsPortlet</portlet-name>
 		<icon>/icon.png</icon>
 		<instanceable>false</instanceable>
-		<header-portlet-css>/css/main.css</header-portlet-css>
+		<header-portlet-css>/css/main.css</header-portlet-css>		
+		<header-portlet-javascript>/js/strutsGrid.js</header-portlet-javascript>
+		<footer-portlet-javascript>/js/auiDialog.js</footer-portlet-javascript>
 		<footer-portlet-javascript>
 			/js/main.js
 		</footer-portlet-javascript>

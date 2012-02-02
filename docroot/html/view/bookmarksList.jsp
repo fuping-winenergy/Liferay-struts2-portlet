@@ -10,6 +10,8 @@
 
 <sj:head jqueryui="true" jquerytheme="flick" />
 
+<portlet:defineObjects />
+
 <!--table>
    <s:iterator value="%{bookmarks}" var="bookmark">
       <tr>
@@ -40,8 +42,6 @@
 <br />
 <br />
 <br />
-
-<portlet:defineObjects />
 
 <%
  PortletURL iteratorURL = renderResponse.createRenderURL();

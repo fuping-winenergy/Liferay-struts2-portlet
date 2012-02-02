@@ -11,9 +11,26 @@
 .errors {
 	background-color:#FFCCCC;
 	border:1px solid #CC0000;
-	width:400px;
-	margin-bottom:8px;
+	width:200px;
+	vertical-align: middle;
+	display: table-cell;
 }
 .errors li{ 
 	list-style: none; 
+}
+
+.errorsTextField {
+	 /*set the border styles.*/
+	 border-width: 1px;
+	 border-style: solid;
+	 border-color: #CC0000;   
+	 /*add in the image 
+	 background-image: url(back_field.gif);
+	 background-repeat: repeat-x;*/
+	 /*add some text formatting 
+	 font-family: Arial, Helvetica, sans-serif;
+	 font-size: 12px;   
+	 color: #333333;
+	 width: 200px;
+	 height: 15px;*/
 }

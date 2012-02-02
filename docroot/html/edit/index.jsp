@@ -16,13 +16,26 @@
    </div>
 </s:if>
  
-<s:form action="index" id="create_bookmark" theme="xhtml">
-	<div id="validationErrors"></div>
+<s:form action="index" id="create_bookmark" theme="simple">
 	<table>
-   		<sj:textfield id="name" name="name" label="Name" onblur="$.publish('nameCheck');"/>  
-      	<s:textfield name="url" label="URL"/>
-      
-      	<s:submit value="Add"/>  
+		<tr>
+			<td>
+   				<sj:textfield id="name" name="name" label="Name"  onblur="$.publish('nameCheck');" />
+   			</td>
+   			<td>
+   				<div id="validationErrors"></div>
+   			</td>
+		</tr>
+   		<tr>  
+   			<td colspan="2">
+      			<s:textfield name="url" label="URL"/>
+      		</td>
+      	</tr>
+      	<tr>
+      		<td colspan="2">
+      			<s:submit value="Add"/>  
+      		</td>
+      	</tr>
 	</table>
 	
     <s:url id="validateName" value="/edit/ajax/validateBookmark.action"/>
