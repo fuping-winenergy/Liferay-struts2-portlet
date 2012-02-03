@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.apache.struts2.interceptor.ParameterAware;
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.liferay.portal.kernel.exception.SystemException;
 import com.opensymphony.xwork2.Preparable;
@@ -16,7 +17,7 @@ import com.winenergy.bookmark.service.BookmarkLocalServiceUtil;
 import com.winenergy.bookmark.validator.BookmarkValidator;
 
 public class EditBookmarkAction extends DefaultActionSupport 
-								implements Preparable, ParameterAware {
+								implements Preparable, ParameterAware, SessionAware {
 
 	/**
 	 * 
@@ -30,6 +31,7 @@ public class EditBookmarkAction extends DefaultActionSupport
 	private Bookmark bookmark; 
 	private Map<String, String[]> parameters;
 	private MessageStore messageStore;
+	private Map<String, Object> session;
 	
    	@Override
    	public String execute() throws Exception {
@@ -81,7 +83,9 @@ public class EditBookmarkAction extends DefaultActionSupport
 		// we have to get the parameter "manually".   		
 		this.oldName = parameters.get("oldName")[0];   		
 		setBookmark(retrieveBookmark());
-	
+		
+		//put bookmark in session
+		getSession().put("bookmark", getBookmark());
 	}
    
    	/**
@@ -108,8 +112,9 @@ public class EditBookmarkAction extends DefaultActionSupport
 			
 		return bookmarks.get(0);
 	}
-   	
-   	/*
+	
+
+	/*
 	 * Getters and Setters start here
 	 */
    	public String getOldName() {
@@ -155,4 +160,15 @@ public class EditBookmarkAction extends DefaultActionSupport
 	public void setMessageStore(MessageStore messageStore) {
 		this.messageStore = messageStore;
 	}
+
+	public Map<String, Object> getSession() {  
+		return session;  
+	}
+	
+	@Override
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+		
+	}
+   	
 }

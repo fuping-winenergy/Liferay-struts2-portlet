@@ -17,6 +17,7 @@
 </s:if>
  
 <s:form action="index" id="create_bookmark" theme="simple">
+	<div id="success_message"></div>
 	<table>
 		<tr>
 			<td>
@@ -28,12 +29,24 @@
 		</tr>
    		<tr>  
    			<td colspan="2">
-      			<s:textfield name="url" label="URL"/>
+      			<s:textfield name="url" label="URL" />
       		</td>
       	</tr>
       	<tr>
       		<td colspan="2">
-      			<s:submit value="Add"/>  
+      			<s:submit value="Add" id="add_button" disabled="true"/>  
+      		</td>
+      	</tr>
+      	<tr>
+      		<td colspan="2">
+      			<s:url id="insert_action" value="/edit/ajax/insertBookmark.action"/>
+				<sj:submit targets="success_message"
+							href="%{insert_action}"
+				           	value="Insert via Ajax" 
+				           	button="true"
+			            	dataType="json"                
+			            	onSuccessTopics="bookmark_added"
+			           	/>
       		</td>
       	</tr>
 	</table>
